@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { ChevronDown, ChevronRight, Heart } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import productsData from "../data/products.json";
-import ProductCard from "../components/ProductCard";
 
 interface ProductDetailProps {
   productId: string;
@@ -43,6 +42,10 @@ export default function ProductDetail({
   const [selectedColor, setSelectedColor] = useState("");
   const { addToCart } = useCart();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]);
+
   const product = productsData.products.find((p) => p.id === productId);
   if (!product) return null;
 
@@ -63,13 +66,25 @@ export default function ProductDetail({
     }
   };
 
+  const handleProductClick = (id: string) => {
+    window.scrollTo(0, 0);
+    const event = new CustomEvent("navigate", { detail: "products" });
+    window.dispatchEvent(event);
+    setTimeout(() => {
+      onClose?.();
+      const selectProductEvent = new CustomEvent("selectProduct", {
+        detail: id,
+      });
+      window.dispatchEvent(selectProductEvent);
+    }, 0);
+  };
+
   const isValidSelection = selectedSize && selectedColor;
 
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Image */}
           <div className="aspect-w-1 aspect-h-1">
             <img
               src={product.image}
@@ -78,7 +93,6 @@ export default function ProductDetail({
             />
           </div>
 
-          {/* Product Details */}
           <div className="space-y-6">
             <div>
               <p className="text-sm text-gray-500 mb-2 uppercase tracking-wide">
@@ -89,7 +103,6 @@ export default function ProductDetail({
             </div>
 
             <div className="space-y-4">
-              {/* Color Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Color:{" "}
@@ -113,7 +126,6 @@ export default function ProductDetail({
                 </div>
               </div>
 
-              {/* Size Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Size
@@ -135,10 +147,9 @@ export default function ProductDetail({
                 </div>
               </div>
 
-              {/* Add to Cart & Wishlist */}
               <div className="flex gap-4 pt-4">
                 <button
-                  className={`flex-1 py-3 text-sm ${
+                  className={`w-full py-3 text-sm ${
                     isValidSelection
                       ? "bg-black text-white hover:bg-gray-800"
                       : "bg-gray-200 text-gray-500 cursor-not-allowed"
@@ -148,13 +159,9 @@ export default function ProductDetail({
                 >
                   {isValidSelection ? "Add to Cart" : "Select Size & Color"}
                 </button>
-                <button className="p-3 border border-gray-200 hover:border-black transition-colors">
-                  <Heart className="w-5 h-5" />
-                </button>
               </div>
             </div>
 
-            {/* Product Information */}
             <div className="space-y-0 pt-6">
               <Accordion title="Description">
                 <p>{product.description}</p>
@@ -178,13 +185,35 @@ export default function ProductDetail({
           </div>
         </div>
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-24">
-            <h2 className="text-2xl font-serif mb-8">You May Also Like</h2>
-            <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {relatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+            <h2 className="text-xs uppercase tracking-widest mb-8">
+              You May Also Like
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {relatedProducts.map((relatedProduct) => (
+                <div
+                  key={relatedProduct.id}
+                  className="cursor-pointer group"
+                  onClick={() => handleProductClick(relatedProduct.id)}
+                >
+                  <div className="aspect-[3/4] mb-4 overflow-hidden bg-gray-100">
+                    <img
+                      src={relatedProduct.image}
+                      alt={relatedProduct.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs uppercase tracking-wider text-gray-500">
+                      {relatedProduct.category}
+                    </p>
+                    <p className="text-sm">{relatedProduct.name}</p>
+                    <p className="text-sm">
+                      ${relatedProduct.price.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>

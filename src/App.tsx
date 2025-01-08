@@ -24,10 +24,17 @@ export default function App() {
     const handleSetCategory = (e: CustomEvent) => {
       setSelectedCategory(e.detail);
     };
+    const handleSelectProduct = (e: CustomEvent) => {
+      setSelectedProduct(e.detail);
+    };
 
     window.addEventListener("openCart", handleOpenCart);
     window.addEventListener("navigate", handleNavigate as EventListener);
     window.addEventListener("setCategory", handleSetCategory as EventListener);
+    window.addEventListener(
+      "selectProduct",
+      handleSelectProduct as EventListener
+    );
 
     return () => {
       window.removeEventListener("openCart", handleOpenCart);
@@ -35,6 +42,10 @@ export default function App() {
       window.removeEventListener(
         "setCategory",
         handleSetCategory as EventListener
+      );
+      window.removeEventListener(
+        "selectProduct",
+        handleSelectProduct as EventListener
       );
     };
   }, []);
