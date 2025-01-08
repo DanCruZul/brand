@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 import SearchOverlay from "./components/SearchOverlay";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [showCart, setShowCart] = useState(false);
@@ -108,6 +109,7 @@ export default function App() {
       <Cart isOpen={showCart} onClose={() => setShowCart(false)} />
 
       {renderContent()}
+      <Footer />
     </div>
   );
 }
