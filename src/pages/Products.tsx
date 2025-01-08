@@ -1,6 +1,18 @@
-import { useState, useRef, useEffect } from "react";
-import { products } from "../data/products";
-import { X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
+import productsData from "../data/products.json";
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  subcategory: string;
+  colors: string[];
+  sizes: string[];
+  description: string;
+}
 
 interface ProductsProps {
   category?: string;
@@ -8,48 +20,119 @@ interface ProductsProps {
 }
 
 interface FilterState {
+  category: string;
   priceRange: string;
   size: string;
   color: string;
 }
 
-export default function Products({ category, onProductClick }: ProductsProps) {
-  const [showFilters, setShowFilters] = useState(false);
+interface FilterDropdownProps {
+  title: string;
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function FilterDropdown({
+  title,
+  options,
+  value,
+  onChange,
+}: FilterDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        className="flex items-center gap-2 text-sm hover:text-gray-600"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {title} <ChevronDown className="w-4 h-4" />
+      </button>
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-30"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-40">
+            {options.map((option) => (
+              <button
+                key={option}
+                className={`block w-full text-left px-4 py-2 text-sm ${
+                  value === option ? "bg-black text-white" : "hover:bg-gray-100"
+                }`}
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default function Products({
+  category: initialCategory,
+  onProductClick,
+}: ProductsProps) {
   const [filters, setFilters] = useState<FilterState>({
+    category: initialCategory?.toLowerCase() || "all",
     priceRange: "",
     size: "",
     color: "",
   });
-  const filterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        filterRef.current &&
-        !filterRef.current.contains(event.target as Node)
-      ) {
-        setShowFilters(false);
-      }
+    if (initialCategory) {
+      setFilters((prev) => ({
+        ...prev,
+        category: initialCategory.toLowerCase(),
+      }));
     }
+  }, [initialCategory]);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const priceRanges = ["$0-200", "$200-500", "$500-1000", "$1000+"];
 
-  const filteredProducts = products.filter((product) => {
-    if (
-      category &&
-      category !== "All" &&
-      product.category.toLowerCase() !== category.toLowerCase()
-    ) {
+  // Get unique values from products
+  const allSizes = Array.from(
+    new Set(productsData.products.flatMap((p) => p.sizes))
+  ).sort();
+
+  const allColors = Array.from(
+    new Set(productsData.products.flatMap((p) => p.colors))
+  ).sort();
+
+  const filteredProducts = productsData.products.filter((product: Product) => {
+    // Category filter
+    if (filters.category !== "all" && product.category !== filters.category) {
       return false;
     }
 
+    // Price range filter
     if (filters.priceRange) {
-      const [min, max] = filters.priceRange.split("-").map(Number);
+      const range = filters.priceRange.replace("$", "");
+      const [min, max] = range
+        .split("-")
+        .map((val) => (val === "1000+" ? Infinity : Number(val)));
       if (product.price < min || product.price > max) {
         return false;
       }
+    }
+
+    // Size filter
+    if (filters.size && !product.sizes.includes(filters.size)) {
+      return false;
+    }
+
+    // Color filter
+    if (filters.color && !product.colors.includes(filters.color)) {
+      return false;
     }
 
     return true;
@@ -57,109 +140,65 @@ export default function Products({ category, onProductClick }: ProductsProps) {
 
   return (
     <div className="min-h-screen pt-16">
-      {/* Filter Sidebar */}
-      <div
-        ref={filterRef}
-        className={`fixed inset-y-0 right-0 w-80 bg-white transform transition-transform duration-300 ease-in-out z-40 ${
-          showFilters ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="h-full flex flex-col p-6">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-lg font-medium">Filters</h2>
-            <button onClick={() => setShowFilters(false)}>
-              <X className="w-5 h-5" />
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Category Navigation */}
+        <div className="flex justify-center space-x-8 mb-8 text-sm">
+          {["all", "mens", "womens", "kids"].map((cat) => (
+            <button
+              key={cat}
+              className={`hover:text-gray-600 transition-colors ${
+                filters.category === cat
+                  ? "text-black font-medium"
+                  : "text-gray-500"
+              }`}
+              onClick={() => setFilters({ ...filters, category: cat })}
+            >
+              {cat === "all" ? "ALL" : `SHOP ${cat.toUpperCase()}`}
             </button>
-          </div>
+          ))}
+        </div>
 
-          <div className="space-y-6 flex-1">
-            <div>
-              <h3 className="text-sm font-medium mb-4">Price Range</h3>
-              <div className="space-y-2">
-                {["0-500", "500-1000", "1000-2000", "2000+"].map((range) => (
-                  <label key={range} className="flex items-center">
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value={range}
-                      checked={filters.priceRange === range}
-                      onChange={(e) =>
-                        setFilters({ ...filters, priceRange: e.target.value })
-                      }
-                      className="mr-2"
-                    />
-                    <span className="text-sm">
-                      {range === "2000+"
-                        ? "$2000+"
-                        : `$${range.replace("-", " - $")}`}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium mb-4">Size</h3>
-              <div className="grid grid-cols-4 gap-2">
-                {["XS", "S", "M", "L", "XL", "XXL"].map((size) => (
-                  <button
-                    key={size}
-                    className={`py-2 text-sm border ${
-                      filters.size === size
-                        ? "border-black bg-black text-white"
-                        : "border-gray-200 hover:border-black"
-                    }`}
-                    onClick={() => setFilters({ ...filters, size })}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium mb-4">Color</h3>
-              <div className="grid grid-cols-4 gap-2">
-                {["Black", "White", "Gray", "Navy"].map((color) => (
-                  <button
-                    key={color}
-                    className={`py-2 text-sm border ${
-                      filters.color === color
-                        ? "border-black bg-black text-white"
-                        : "border-gray-200 hover:border-black"
-                    }`}
-                    onClick={() => setFilters({ ...filters, color })}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
-            </div>
+        {/* Filters */}
+        <div className="flex justify-between items-center mb-8 border-t border-b py-4">
+          <div className="flex gap-8">
+            <FilterDropdown
+              title="Price"
+              options={priceRanges}
+              value={filters.priceRange}
+              onChange={(value) =>
+                setFilters({ ...filters, priceRange: value })
+              }
+            />
+            <FilterDropdown
+              title="Size"
+              options={allSizes}
+              value={filters.size}
+              onChange={(value) => setFilters({ ...filters, size: value })}
+            />
+            <FilterDropdown
+              title="Color"
+              options={allColors}
+              value={filters.color}
+              onChange={(value) => setFilters({ ...filters, color: value })}
+            />
           </div>
 
           <button
-            onClick={() => setFilters({ priceRange: "", size: "", color: "" })}
-            className="w-full py-3 text-sm border border-black hover:bg-black hover:text-white transition-colors mt-auto"
+            onClick={() =>
+              setFilters({
+                category: filters.category,
+                priceRange: "",
+                size: "",
+                color: "",
+              })
+            }
+            className="text-sm hover:text-gray-600 transition-colors"
           >
             Clear All
           </button>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-sm tracking-wider">
-            {category || "All Products"}
-          </h1>
-          <button
-            onClick={() => setShowFilters(true)}
-            className="text-sm tracking-wider hover:text-gray-600 transition-colors"
-          >
-            FILTER
-          </button>
-        </div>
-
+        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-100">
           {filteredProducts.map((product) => (
             <div

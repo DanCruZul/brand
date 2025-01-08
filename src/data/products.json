@@ -1,0 +1,103 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Cashmere Oversized Sweater",
+      "price": 890,
+      "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80",
+      "category": "womens",
+      "subcategory": "knitwear",
+      "colors": ["cream", "black", "gray"],
+      "sizes": ["XS", "S", "M", "L", "XL"],
+      "description": "Luxuriously soft cashmere sweater with a relaxed silhouette"
+    },
+    {
+      "id": "2",
+      "name": "Silk Evening Dress",
+      "price": 1290,
+      "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80",
+      "category": "womens",
+      "subcategory": "dresses",
+      "colors": ["black", "navy"],
+      "sizes": ["XS", "S", "M", "L"],
+      "description": "Elegant silk evening dress with draped details"
+    },
+    {
+      "id": "3",
+      "name": "Tailored Wool Blazer",
+      "price": 1490,
+      "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80",
+      "category": "mens",
+      "subcategory": "outerwear",
+      "colors": ["black", "navy", "gray"],
+      "sizes": ["S", "M", "L", "XL"],
+      "description": "Impeccably tailored wool blazer with silk lining"
+    },
+    {
+      "id": "4",
+      "name": "Kids Denim Jacket",
+      "price": 180,
+      "image": "https://images.unsplash.com/photo-1519278409-1f56fdda7fe5?auto=format&fit=crop&q=80",
+      "category": "kids",
+      "subcategory": "outerwear",
+      "colors": ["blue", "black"],
+      "sizes": ["3Y", "4Y", "5Y", "6Y"],
+      "description": "Durable and stylish denim jacket for kids"
+    },
+    {
+      "id": "5",
+      "name": "Leather Oxford Shoes",
+      "price": 590,
+      "image": "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&q=80",
+      "category": "mens",
+      "subcategory": "shoes",
+      "colors": ["black", "brown"],
+      "sizes": ["40", "41", "42", "43", "44"],
+      "description": "Classic leather oxford shoes with Goodyear welting"
+    },
+    {
+      "id": "6",
+      "name": "Cotton T-Shirt",
+      "price": 120,
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80",
+      "category": "mens",
+      "subcategory": "tops",
+      "colors": ["white", "black", "gray", "navy"],
+      "sizes": ["S", "M", "L", "XL"],
+      "description": "Premium cotton t-shirt with a perfect fit"
+    },
+    {
+      "id": "7",
+      "name": "Pleated Midi Skirt",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&q=80",
+      "category": "womens",
+      "subcategory": "skirts",
+      "colors": ["black", "navy", "cream"],
+      "sizes": ["XS", "S", "M", "L"],
+      "description": "Elegant pleated midi skirt in lightweight fabric"
+    },
+    {
+      "id": "8",
+      "name": "Kids Party Dress",
+      "price": 220,
+      "image": "https://images.unsplash.com/photo-1603966000629-d6b972821318?auto=format&fit=crop&q=80",
+      "category": "kids",
+      "subcategory": "dresses",
+      "colors": ["pink", "white", "blue"],
+      "sizes": ["2Y", "3Y", "4Y", "5Y"],
+      "description": "Adorable party dress with tulle details"
+    },
+    {
+      "id": "9",
+      "name": "Cotton Pepe-Shirt",
+      "price": 120,
+      "image": "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg",
+      "category": "mens",
+      "subcategory": "tops",
+      "colors": ["white", "black"],
+      "sizes": ["S", "M", "L", "XL"],
+      "description": "Premium cotton t-shirt with a perfect fit xdxd"
+    }
+  ]
+}
