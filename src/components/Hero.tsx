@@ -1,3 +1,12 @@
+import { useState, useEffect } from "react";
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80",
+];
+
 interface CategoryCardProps {
   title: string;
   image: string;
@@ -25,6 +34,16 @@ function CategoryCard({ title, image, onClick }: CategoryCardProps) {
 }
 
 export default function Hero() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const dispatchNavigate = (category: string) => {
     const event = new CustomEvent("navigate", {
       detail: "products",
@@ -60,12 +79,21 @@ export default function Hero() {
 
   return (
     <div>
-      <div className="relative h-screen">
-        <img
-          src="https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?auto=format&fit=crop&q=80"
-          alt="Hero"
-          className="w-full h-full object-cover brightness-90"
-        />
+      <div className="relative h-screen overflow-hidden">
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              currentImageIndex === index ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={image}
+              alt={`Hero ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center px-4">
           <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif tracking-wider mb-4 sm:mb-6 md:mb-8 text-center">
             ETERNAL

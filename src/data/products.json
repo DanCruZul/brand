@@ -4,6 +4,13 @@
       "id": "1",
       "name": "Cashmere Oversized Sweater",
       "price": 890,
+      "images": [
+        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1598522325074-042db73aa4e6?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80",
       "category": "womens",
       "subcategory": "knitwear",
@@ -15,6 +22,13 @@
       "id": "2",
       "name": "Silk Evening Dress",
       "price": 1290,
+      "images": [
+        "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1546635834-78554e816d55?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80",
       "category": "womens",
       "subcategory": "dresses",
@@ -26,6 +40,13 @@
       "id": "3",
       "name": "Tailored Wool Blazer",
       "price": 1490,
+      "images": [
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1598533583892-f0c89df577b7?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80",
       "category": "mens",
       "subcategory": "outerwear",
@@ -37,6 +58,13 @@
       "id": "4",
       "name": "Kids Denim Jacket",
       "price": 180,
+      "images": [
+        "https://images.unsplash.com/photo-1519278409-1f56fdda7fe5?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1519278409-1f56fdda7fe5?auto=format&fit=crop&q=80",
       "category": "kids",
       "subcategory": "outerwear",
@@ -48,6 +76,13 @@
       "id": "5",
       "name": "Leather Oxford Shoes",
       "price": 590,
+      "images": [
+        "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1542280756-74b2f55e73ab?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&q=80",
       "category": "mens",
       "subcategory": "shoes",
@@ -59,6 +94,13 @@
       "id": "6",
       "name": "Cotton T-Shirt",
       "price": 120,
+      "images": [
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1622445275576-721325763afe?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80",
       "category": "mens",
       "subcategory": "tops",
@@ -70,6 +112,13 @@
       "id": "7",
       "name": "Pleated Midi Skirt",
       "price": 450,
+      "images": [
+        "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1577900232427-18219b9166a0?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582142306909-195724d33ffc?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&q=80"
+      ],
       "image": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&q=80",
       "category": "womens",
       "subcategory": "skirts",
@@ -81,7 +130,14 @@
       "id": "8",
       "name": "Kids Party Dress",
       "price": 220,
-      "image": "https://images.unsplash.com/photo-1603966000629-d6b972821318?auto=format&fit=crop&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&q=80"
+      ],
+      "image": "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&q=80",
       "category": "kids",
       "subcategory": "dresses",
       "colors": ["pink", "white", "blue"],
@@ -92,6 +148,13 @@
       "id": "9",
       "name": "Cotton Pepe-Shirt",
       "price": 120,
+      "images": [
+        "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg",
+        "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg",
+        "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg",
+        "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg",
+        "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg"
+      ],
       "image": "https://i.etsystatic.com/25981801/r/il/d2ee8a/5548020695/il_794xN.5548020695_gabj.jpg",
       "category": "mens",
       "subcategory": "tops",

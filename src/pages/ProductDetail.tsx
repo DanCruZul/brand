@@ -40,6 +40,7 @@ export default function ProductDetail({
 }: ProductDetailProps) {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -85,12 +86,36 @@ export default function ProductDetail({
     <div className="min-h-screen pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="aspect-w-1 aspect-h-1">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
+          <div className="space-y-4">
+            {/* Main Image */}
+            <div className="aspect-w-1 aspect-h-1 bg-gray-100">
+              <img
+                src={product.images[selectedImageIndex]}
+                alt={`${product.name} view ${selectedImageIndex + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Thumbnail Gallery */}
+            <div className="grid grid-cols-5 gap-2">
+              {product.images.map((image, index) => (
+                <button
+                  key={index}
+                  className={`aspect-square overflow-hidden ${
+                    selectedImageIndex === index
+                      ? "ring-2 ring-black"
+                      : "ring-1 ring-gray-200"
+                  }`}
+                  onClick={() => setSelectedImageIndex(index)}
+                >
+                  <img
+                    src={image}
+                    alt={`${product.name} thumbnail ${index + 1}`}
+                    className="w-full h-full object-cover hover:opacity-80 transition-opacity"
+                  />
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="space-y-6">
