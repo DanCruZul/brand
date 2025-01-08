@@ -48,6 +48,10 @@ export default function App() {
     setSelectedProduct(null);
   };
 
+  const handleCategoryClick = (category: string) => {
+    handleNavigation("products", category);
+  };
+
   const renderContent = () => {
     if (currentPage === "checkout") {
       return <Checkout />;
@@ -81,6 +85,7 @@ export default function App() {
         onMenuClick={() => setShowSidebar(true)}
         onSearchClick={() => setShowSearch(true)}
         onLogoClick={() => handleNavigation("home")}
+        onCategoryClick={handleCategoryClick}
       />
 
       <Sidebar
