@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Product } from '../types';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface ProductCardProps {
   product: Product;
@@ -7,6 +8,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onClick }: ProductCardProps) {
+  const { formatPrice } = useCurrency();
+
   return (
     <div 
       className="group cursor-pointer" 
@@ -21,7 +24,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
       </div>
       <div className="mt-4 space-y-1">
         <h3 className="text-sm text-gray-700">{product.name}</h3>
-        <p className="text-lg font-medium text-gray-900">${product.price.toLocaleString()}</p>
+        <p className="text-lg font-medium text-gray-900">{formatPrice(product.price)}</p>
       </div>
     </div>
   );

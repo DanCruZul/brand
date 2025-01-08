@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useCurrency } from "../context/CurrencyContext";
 import productsData from "../data/products.json";
 
 interface ProductDetailProps {
@@ -42,6 +43,7 @@ export default function ProductDetail({
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addToCart } = useCart();
+  const { formatPrice } = useCurrency();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -87,7 +89,6 @@ export default function ProductDetail({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="space-y-4">
-            {/* Main Image */}
             <div className="aspect-w-1 aspect-h-1 bg-gray-100">
               <img
                 src={product.images[selectedImageIndex]}
@@ -96,7 +97,6 @@ export default function ProductDetail({
               />
             </div>
 
-            {/* Thumbnail Gallery */}
             <div className="grid grid-cols-5 gap-2">
               {product.images.map((image, index) => (
                 <button
@@ -124,7 +124,7 @@ export default function ProductDetail({
                 {product.category} / {product.subcategory}
               </p>
               <h1 className="text-2xl font-serif mb-2">{product.name}</h1>
-              <p className="text-xl">${product.price.toLocaleString()}</p>
+              <p className="text-xl">{formatPrice(product.price)}</p>
             </div>
 
             <div className="space-y-4">
@@ -200,9 +200,7 @@ export default function ProductDetail({
               </Accordion>
               <Accordion title="Size Guide">
                 <div className="space-y-2">
-                  <p>
-                    Please refer to our size guide to find your perfect fit.
-                  </p>
+                  <p>Please refer to our size guide to find your perfect fit.</p>
                   <p>Model is wearing size M.</p>
                 </div>
               </Accordion>
@@ -235,7 +233,7 @@ export default function ProductDetail({
                     </p>
                     <p className="text-sm">{relatedProduct.name}</p>
                     <p className="text-sm">
-                      ${relatedProduct.price.toLocaleString()}
+                      {formatPrice(relatedProduct.price)}
                     </p>
                   </div>
                 </div>

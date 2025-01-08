@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShoppingCart, X, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface CartProps {
   isOpen: boolean;
@@ -9,10 +10,10 @@ interface CartProps {
 
 export default function Cart({ isOpen, onClose }: CartProps) {
   const { items, removeFromCart, updateQuantity, total } = useCart();
+  const { formatPrice } = useCurrency();
 
   const handleCheckout = () => {
     onClose();
-    // Get the setCurrentPage function from App.tsx
     const event = new CustomEvent('navigate', { detail: 'checkout' });
     window.dispatchEvent(event);
   };
@@ -83,7 +84,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                             <Plus className="h-4 w-4" />
                           </button>
                         </div>
-                        <p className="text-sm">${(item.price * item.quantity).toLocaleString()}</p>
+                        <p className="text-sm">{formatPrice(item.price * item.quantity)}</p>
                       </div>
                     </div>
                   </div>
@@ -94,7 +95,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
                     <span>Subtotal</span>
-                    <span>${total.toLocaleString()}</span>
+                    <span>{formatPrice(total)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Shipping</span>
@@ -104,7 +105,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                 <div className="border-t pt-4">
                   <div className="flex justify-between font-medium mb-4">
                     <span>Total</span>
-                    <span>${total.toLocaleString()}</span>
+                    <span>{formatPrice(total)}</span>
                   </div>
                   <button 
                     className="w-full bg-black text-white py-3 hover:bg-gray-800 transition-colors text-sm"

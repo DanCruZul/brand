@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
+import { useCurrency } from "../context/CurrencyContext";
 
 interface CountryOption {
   name: string;
@@ -21,7 +22,7 @@ const countries: CountryOption[] = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [showCurrencySelect, setShowCurrencySelect] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
+  const { selectedCountry, setSelectedCountry } = useCurrency();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
