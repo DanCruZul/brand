@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Cart from './pages/Cart';
@@ -6,14 +6,21 @@ import Sidebar from './components/Sidebar';
 import SearchOverlay from './components/SearchOverlay';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
+import { useCart } from './context/CartContext';
 
 export default function App() {
-  const [showCart, setShowCart] = React.useState(false);
-  const [showSidebar, setShowSidebar] = React.useState(false);
-  const [showSearch, setShowSearch] = React.useState(false);
-  const [currentPage, setCurrentPage] = React.useState('home');
-  const [selectedProduct, setSelectedProduct] = React.useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
+  const [showCart, setShowCart] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleOpenCart = () => setShowCart(true);
+    window.addEventListener('openCart', handleOpenCart);
+    return () => window.removeEventListener('openCart', handleOpenCart);
+  }, []);
 
   const handleNavigation = (page: string, category?: string) => {
     setCurrentPage(page);
@@ -39,13 +46,12 @@ export default function App() {
         onNavigate={handleNavigation}
       />
       <SearchOverlay isOpen={showSearch} onClose={() => setShowSearch(false)} />
+      <Cart isOpen={showCart} onClose={() => setShowCart(false)} />
       
-      {showCart ? (
-        <Cart onClose={() => setShowCart(false)} />
-      ) : selectedProduct ? (
+      {selectedProduct ? (
         <ProductDetail 
           productId={selectedProduct} 
-          onClose={() => setSelectedProduct(null)} 
+          onClose={() => setSelectedProduct(null)}
         />
       ) : currentPage === 'products' ? (
         <Products 
