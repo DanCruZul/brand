@@ -10,6 +10,13 @@ interface CartProps {
 export default function Cart({ isOpen, onClose }: CartProps) {
   const { items, removeFromCart, updateQuantity, total } = useCart();
 
+  const handleCheckout = () => {
+    onClose();
+    // Get the setCurrentPage function from App.tsx
+    const event = new CustomEvent('navigate', { detail: 'checkout' });
+    window.dispatchEvent(event);
+  };
+
   return (
     <>
       <div 
@@ -99,7 +106,10 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                     <span>Total</span>
                     <span>${total.toLocaleString()}</span>
                   </div>
-                  <button className="w-full bg-black text-white py-3 hover:bg-gray-800 transition-colors text-sm">
+                  <button 
+                    className="w-full bg-black text-white py-3 hover:bg-gray-800 transition-colors text-sm"
+                    onClick={handleCheckout}
+                  >
                     Proceed to Checkout
                   </button>
                 </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import Sidebar from './components/Sidebar';
 import SearchOverlay from './components/SearchOverlay';
 import Products from './pages/Products';
@@ -18,8 +19,17 @@ export default function App() {
 
   useEffect(() => {
     const handleOpenCart = () => setShowCart(true);
+    const handleNavigate = (e: CustomEvent) => {
+      setCurrentPage(e.detail);
+    };
+
     window.addEventListener('openCart', handleOpenCart);
-    return () => window.removeEventListener('openCart', handleOpenCart);
+    window.addEventListener('navigate', handleNavigate as EventListener);
+    
+    return () => {
+      window.removeEventListener('openCart', handleOpenCart);
+      window.removeEventListener('navigate', handleNavigate as EventListener);
+    };
   }, []);
 
   const handleNavigation = (page: string, category?: string) => {
@@ -29,6 +39,55 @@ export default function App() {
     setShowCart(false);
     setShowSearch(false);
     setSelectedProduct(null);
+  };
+
+  const renderContent = () => {
+    if (currentPage === 'checkout') {
+      return <Checkout />;
+    }
+    
+    if (selectedProduct) {
+      return (
+        <ProductDetail 
+          productId={selectedProduct} 
+          onClose={() => setSelectedProduct(null)}
+        />
+      );
+    }
+    
+    if (currentPage === 'products') {
+      return (
+        <Products 
+          category={selectedCategory || undefined} 
+          onProductClick={setSelectedProduct}
+        />
+      );
+    }
+    
+    return (
+      <>
+        <Hero />
+        <Products onProductClick={setSelectedProduct} />
+        <footer className="bg-gray-900 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div>
+                <h3 className="text-lg font-serif mb-4">MAISON</h3>
+                <p className="text-gray-400">Luxury clothing and accessories.</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-serif mb-4">Contact</h3>
+                <p className="text-gray-400">contact@maison.com</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-serif mb-4">Follow Us</h3>
+                <p className="text-gray-400">Instagram • Facebook • Twitter</p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </>
+    );
   };
 
   return (
@@ -46,42 +105,12 @@ export default function App() {
         onNavigate={handleNavigation}
       />
       <SearchOverlay isOpen={showSearch} onClose={() => setShowSearch(false)} />
-      <Cart isOpen={showCart} onClose={() => setShowCart(false)} />
+      <Cart 
+        isOpen={showCart} 
+        onClose={() => setShowCart(false)} 
+      />
       
-      {selectedProduct ? (
-        <ProductDetail 
-          productId={selectedProduct} 
-          onClose={() => setSelectedProduct(null)}
-        />
-      ) : currentPage === 'products' ? (
-        <Products 
-          category={selectedCategory || undefined} 
-          onProductClick={setSelectedProduct}
-        />
-      ) : (
-        <>
-          <Hero />
-          <Products onProductClick={setSelectedProduct} />
-          <footer className="bg-gray-900 text-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                  <h3 className="text-lg font-serif mb-4">MAISON</h3>
-                  <p className="text-gray-400">Luxury clothing and accessories.</p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-serif mb-4">Contact</h3>
-                  <p className="text-gray-400">contact@maison.com</p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-serif mb-4">Follow Us</h3>
-                  <p className="text-gray-400">Instagram • Facebook • Twitter</p>
-                </div>
-              </div>
-            </div>
-          </footer>
-        </>
-      )}
+      {renderContent()}
     </div>
   );
 }
